@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BottomNavigationViewDemo</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_home_reselected">Home Reselected</string>
+    <string name="title_dashboard_reselected">Dashboard Reselected</string>
+    <string name="title_notifications_reselected">Notifications Reselected</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_settings_reselected">Settings Reselected</string>
+</resources>
