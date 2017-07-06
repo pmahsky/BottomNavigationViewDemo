@@ -30,14 +30,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.content)
     FrameLayout content;
 
-    BottomNavigationView bottomNavigationView;
     private ArrayList<FragmentBottomNavView> fragmentsList;
     private String[] fragmentArgList = new String[]{"HOME FRAGMENT", "DASHBOARD FRAGMENT", "NOTIFICATIONS FRAGMENT", "SETTINGS FRAGMENT"};
     private boolean toCreateDynamicBottomNavView;
-    private int dynamicHomeItemId;
-    private int dynamicDashboardItemId;
-    private int dynamicNotificationsItemId;
-    private int dynamicSettingsItemId;
     private String TAG;
 
     @Override
@@ -45,8 +40,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        TAG = getClass().getSimpleName();
 
         toCreateDynamicBottomNavView = true;
+
+        BottomNavigationView bottomNavigationView;
 
         if (toCreateDynamicBottomNavView) {
 
@@ -56,12 +54,24 @@ public class MainActivity extends AppCompatActivity {
 
             Snackbar.make(findViewById(R.id.container), "Bottom Navigation View Created Dynamically", Snackbar.LENGTH_SHORT).show();
 
+            /**
+             * If there are more than 3 Views then the selected View takes more space than others by default. This method disables the Shifting Mode through Reflection. There is no public API as of now to do this.
+             * To keep the default behavior, just comment this method.
+             * @params: Reference of BottomNavigationView
+             */
+
         } else {
 
             findViewById(R.id.navigationDynamic).setVisibility(View.GONE);
             bottomNavigationView = findViewById(R.id.navigation);
+
             Snackbar.make(findViewById(R.id.container), "Bottom Navigation View Created from XML", Snackbar.LENGTH_SHORT).show();
 
+            /**
+             * If there are more than 3 Views then the selected View takes more space than others by default. This method disables the Shifting Mode through Reflection. There is no public API as of now to do this.
+             * To keep the default behavior, just comment this method.
+             * @params: Reference of BottomNavigationView
+             */
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -77,22 +87,18 @@ public class MainActivity extends AppCompatActivity {
 
         selectFragment(0);
 
-        /**
-         * If there are more than 3 Views then the selected View takes more space than others by default. This method disables the Shifting Mode through Reflection. There is no public API as of now to do this.
-         * To keep the default behavior, just comment this method.
-         * @params: Reference of BottomNavigationView
-         */
         disableShiftingModeOfBottomNavigationView(bottomNavigationView);
 
     }
 
-    private void addViewsDynamicallyInBottomNavigationView(BottomNavigationView bottomNavigationView) {
-        Menu menu = bottomNavigationView.getMenu();
+    private void addViewsDynamicallyInBottomNavigationView(BottomNavigationView bottomNavigationViewDynamic) {
 
-        dynamicHomeItemId = menu.add("Home").setIcon(R.drawable.ic_home_black_24dp).getItemId();
-        dynamicDashboardItemId = menu.add("Dashboard").setIcon(R.drawable.ic_dashboard_black_24dp).getItemId();
-        dynamicNotificationsItemId = menu.add("Notifications").setIcon(R.drawable.ic_notifications_black_24dp).getItemId();
-        dynamicSettingsItemId = menu.add("Settings").setIcon(R.drawable.ic_settings_black_24dp).getItemId();
+        Menu menu = bottomNavigationViewDynamic.getMenu();
+
+        menu.add(Menu.NONE, FRAGMENT_HOME_POSITION, Menu.NONE, "Home").setIcon(R.drawable.ic_home_black_24dp).getItemId();
+        menu.add(Menu.NONE, FRAGMENT_DASHBOARD_POSITION, Menu.NONE, "Dashboard").setIcon(R.drawable.ic_dashboard_black_24dp).getItemId();
+        menu.add(Menu.NONE, FRAGMENT_NOTIFICATIONS_POSITION, Menu.NONE, "Notifications").setIcon(R.drawable.ic_notifications_black_24dp).getItemId();
+        menu.add(Menu.NONE, FRAGMENT_SETTINGS_POSITION, Menu.NONE, "Settings").setIcon(R.drawable.ic_settings_black_24dp).getItemId();
 
     }
 
@@ -166,42 +172,29 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            if ((item.getItemId() == R.id.navigation_home) || (item.getItemId() == dynamicHomeItemId)) {
-                selectFragment(FRAGMENT_HOME_POSITION);
-
-            } else if ((item.getItemId() == R.id.navigation_dashboard) || (item.getItemId() == dynamicDashboardItemId)) {
-
-                selectFragment(FRAGMENT_DASHBOARD_POSITION);
-
-            } else if ((item.getItemId() == R.id.navigation_notifications) || (item.getItemId() == dynamicNotificationsItemId)) {
-
-                selectFragment(FRAGMENT_NOTIFICATIONS_POSITION);
-
-            } else if ((item.getItemId() == R.id.navigation_settings) || (item.getItemId() == dynamicSettingsItemId)) {
-
-                selectFragment(FRAGMENT_SETTINGS_POSITION);
-
-            }
-
-         /*   switch (item.getItemId()) {
+            switch (item.getItemId()) {
                 case R.id.navigation_home:
+                case FRAGMENT_HOME_POSITION:
                     selectFragment(FRAGMENT_HOME_POSITION);
                     return true;
 
                 case R.id.navigation_dashboard:
+                case FRAGMENT_DASHBOARD_POSITION:
                     selectFragment(FRAGMENT_DASHBOARD_POSITION);
 
                     return true;
 
                 case R.id.navigation_notifications:
+                case FRAGMENT_NOTIFICATIONS_POSITION:
                     selectFragment(FRAGMENT_NOTIFICATIONS_POSITION);
                     return true;
 
                 case R.id.navigation_settings:
+                case FRAGMENT_SETTINGS_POSITION:
                     selectFragment(FRAGMENT_SETTINGS_POSITION);
                     return true;
 
-            }*/
+            }
             return true;
         }
 
@@ -214,18 +207,22 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
 
                 case R.id.navigation_home:
+                case FRAGMENT_HOME_POSITION:
                     Log.d(TAG, "Navigation Reselected ===");
                     break;
 
                 case R.id.navigation_dashboard:
+                case FRAGMENT_DASHBOARD_POSITION:
                     Log.d(TAG, "Dashboard Reselected ===");
                     break;
 
                 case R.id.navigation_notifications:
+                case FRAGMENT_NOTIFICATIONS_POSITION:
                     Log.d(TAG, "Notification Reselected ===");
                     break;
 
                 case R.id.navigation_settings:
+                case FRAGMENT_SETTINGS_POSITION:
                     Log.d(TAG, "Settings Reselected ===");
                     break;
             }
