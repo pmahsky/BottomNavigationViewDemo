@@ -54,12 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
             Snackbar.make(findViewById(R.id.container), "Bottom Navigation View Created Dynamically", Snackbar.LENGTH_SHORT).show();
 
-            /**
-             * If there are more than 3 Views then the selected View takes more space than others by default. This method disables the Shifting Mode through Reflection. There is no public API as of now to do this.
-             * To keep the default behavior, just comment this method.
-             * @params: Reference of BottomNavigationView
-             */
-
         } else {
 
             findViewById(R.id.navigationDynamic).setVisibility(View.GONE);
@@ -67,11 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
             Snackbar.make(findViewById(R.id.container), "Bottom Navigation View Created from XML", Snackbar.LENGTH_SHORT).show();
 
-            /**
-             * If there are more than 3 Views then the selected View takes more space than others by default. This method disables the Shifting Mode through Reflection. There is no public API as of now to do this.
-             * To keep the default behavior, just comment this method.
-             * @params: Reference of BottomNavigationView
-             */
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -87,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
         selectFragment(0);
 
+        /**
+         * If there are more than 3 Views then the selected View takes more space than others by default. This method disables the Shifting Mode through Reflection. There is no public API as of now to do this.
+         * To keep the default behavior, just comment this method.
+         * @params: Reference of BottomNavigationView
+         */
         disableShiftingModeOfBottomNavigationView(bottomNavigationView);
 
     }
