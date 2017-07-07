@@ -2,6 +2,9 @@
 BottomNavigationView is a component added in Google Support Library. It provides a quick navigation between top level views within an app. It should be used when application has three to five top-level destinations.
 
 ### Implementation
+Add to the build.gradle of the module
+```compile 'com.android.support:design:25.3.1'```
+
 Create the BottomNavigationView in xml of your layout and provide a menu resource to it:
 ```
 <android.support.design.widget.BottomNavigationView
